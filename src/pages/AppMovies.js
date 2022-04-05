@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import MovieService from "../services/MovieService";
 import { addMovies } from "../store/movies/slice";
 import { useSelector } from "react-redux";
-import { selectMovies } from "../store/movies/selectors";
+import { selectMovies, selectSearch } from "../store/movies/selectors";
 import MovieRow from "../components/MovieRow";
 function AppMovies() {
   const dispatch = useDispatch();
@@ -20,10 +20,16 @@ function AppMovies() {
   }, []);
   // movie selector
   const movies = useSelector(selectMovies);
+  // search selector
+  const search = useSelector(selectSearch);
+  console.log(search);
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div>
       <ul>
-        {movies.map((movie) => (
+        {filteredMovies.map((movie) => (
           <li key={movie.id}>
             <MovieRow {...movie} />
           </li>
