@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import MovieService from "../services/MovieService";
-import { addMovies, isMovieSelected } from "../store/movies/slice";
+import {
+  addMovies,
+  deselectAllMovies,
+  isMovieSelected,
+  selectAllMovies,
+} from "../store/movies/slice";
 import { useSelector } from "react-redux";
 import {
   selectCount,
@@ -32,6 +37,15 @@ function AppMovies() {
   // count
   const count = useSelector(selectCount);
   // isSelected
+  const isSelected = count === movies.length;
+  // handle Select All
+  const handleSelectAll = () => {
+    if (isSelected) {
+      dispatch(deselectAllMovies());
+    } else {
+      dispatch(selectAllMovies());
+    }
+  };
   return (
     <div>
       <span>Number of selected movies: {count} </span>
@@ -45,6 +59,9 @@ function AppMovies() {
               </div>
             ))
           : "No movies have been found by that name!"}
+        <button type='button' onClick={handleSelectAll}>
+          {isSelected ? "Deselect All" : "Select All"}
+        </button>
       </ul>
     </div>
   );

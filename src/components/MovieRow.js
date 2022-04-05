@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectMovies, selectSelectedMovies } from "../store/movies/selectors";
+import { selectSelectedMovies } from "../store/movies/selectors";
 import { addSelectedMovie, removeSelectedMovie } from "../store/movies/slice";
 
 function MovieRow(props) {

@@ -21,8 +21,20 @@ export const counterSlice = createSlice({
         (item) => item !== action.payload
       );
     },
+    selectAllMovies: (state) => {
+      state.selectedMovies = state.movies.map((item) => item.id);
+    },
+    deselectAllMovies: (state) => {
+      state.selectedMovies = [];
+    },
   },
 });
-export const { addMovies, addSearch, addSelectedMovie, removeSelectedMovie } =
-  counterSlice.actions;
+export const {
+  addMovies,
+  addSearch,
+  addSelectedMovie,
+  removeSelectedMovie,
+  selectAllMovies,
+  deselectAllMovies,
+} = counterSlice.actions;
 export default counterSlice.reducer;
