@@ -20,6 +20,7 @@ function App() {
             </li>
           </ul>
         </nav>
+        <hr />
         <Switch>
           <Route exact path='/' render={() => <Redirect to='/movies' />} />
           <Route path='/movies'>
