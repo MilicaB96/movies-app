@@ -1,16 +1,15 @@
-import axios from "axios";
 import HttpService from "./HttpService";
 
 class MovieService extends HttpService {
-  async getAll() {
+  getAll = async () => {
     const { data } = await this.client.get("movies");
     return data;
-  }
+  };
 
-  async get(id) {
+  get = async (id) => {
     const { data } = await this.client.get(`movies/${id}`);
     return data;
-  }
+  };
 
   async add(newMovie) {
     const { data } = await this.client.post("movies", newMovie);
