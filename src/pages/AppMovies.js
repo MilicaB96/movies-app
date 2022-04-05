@@ -22,18 +22,19 @@ function AppMovies() {
   const movies = useSelector(selectMovies);
   // search selector
   const search = useSelector(selectSearch);
-  console.log(search);
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(search.toLowerCase())
   );
   return (
     <div>
       <ul>
-        {filteredMovies.map((movie) => (
-          <li key={movie.id}>
-            <MovieRow {...movie} />
-          </li>
-        ))}
+        {filteredMovies.length
+          ? filteredMovies.map((movie) => (
+              <li key={movie.id}>
+                <MovieRow {...movie} />
+              </li>
+            ))
+          : "No movies have been found by that name!"}
       </ul>
     </div>
   );
