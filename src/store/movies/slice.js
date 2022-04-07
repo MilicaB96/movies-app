@@ -5,6 +5,7 @@ export const counterSlice = createSlice({
     movies: [],
     search: "",
     selectedMovies: [],
+    currentPage: 1,
   },
   reducers: {
     addMovies: (state, action) => {
@@ -27,6 +28,20 @@ export const counterSlice = createSlice({
     deselectAllMovies: (state) => {
       state.selectedMovies = [];
     },
+    nextPage: (state) => {
+      if (state.currentPage == Math.ceil(state.movies.length / 5)) {
+        return;
+      } else {
+        state.currentPage++;
+      }
+    },
+    previousPage: (state) => {
+      if (state.currentPage == 1) {
+        return;
+      } else {
+        state.currentPage--;
+      }
+    },
   },
 });
 export const {
@@ -36,5 +51,7 @@ export const {
   removeSelectedMovie,
   selectAllMovies,
   deselectAllMovies,
+  nextPage,
+  previousPage,
 } = counterSlice.actions;
 export default counterSlice.reducer;
