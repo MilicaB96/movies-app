@@ -7,17 +7,15 @@ import {
   nextPage,
   previousPage,
   selectAllMovies,
+  setSort,
 } from "../store/movies/slice";
 import { useSelector } from "react-redux";
 import {
   selectCount,
   selectMovies,
   selectSearch,
-  selectSortByDurationAsc,
-  selectSortByNameAsc,
-  selectSortByNameDesc,
-  selectSortByDurationDesc,
   selectMoviesOnPage,
+  selectIsAllSelected,
 } from "../store/movies/selectors";
 import MovieRow from "../components/MovieRow";
 function AppMovies() {
@@ -37,18 +35,17 @@ function AppMovies() {
   const movies = useSelector(selectMovies);
 
   // movies on display
-  const moviesOnDipslay = useSelector(selectMoviesOnPage);
   // search selector
   const search = useSelector(selectSearch);
   const filteredMovies = search
     ? movies.filter((movie) =>
         movie.title.toLowerCase().includes(search.toLowerCase())
       )
-    : moviesOnDipslay;
+    : movies;
   // count
   const count = useSelector(selectCount);
   // isSelected
-  const isSelected = count === movies.length;
+  const isSelected = useSelector(selectIsAllSelected);
   // handle Select All
   const handleSelectAll = () => {
     if (isSelected) {
@@ -57,12 +54,6 @@ function AppMovies() {
       dispatch(selectAllMovies());
     }
   };
-  // handle sort
-  // const sortByNameAsc = useSelector(selectSortByNameAsc);
-  // const sortByNameDesc = useSelector(selectSortByNameDesc);
-  // const sortByDurationAsc = useSelector(selectSortByDurationAsc);
-  // const sortByDurationDesc = useSelector(selectSortByDurationDesc);
-  console.log(movies);
   return (
     <div>
       <span>Number of selected movies: {count} </span>
@@ -94,10 +85,36 @@ function AppMovies() {
         >
           {"->"}
         </button>
-        {/* <button onClick={() => {}}>Sort by Name (asc)</button>
-        <button onClick={() => {}}>Sort by Name (desc)</button>
-        <button onClick={() => {}}> Sort by Duration (asc)</button>
-        <button onClick={() => {}}>Sort by Duration (desc)</button> */}
+        <br />
+        <button
+          onClick={() => {
+            dispatch(setSort("nameAsc"));
+          }}
+        >
+          Sort by Name (asc)
+        </button>
+        <button
+          onClick={() => {
+            dispatch(setSort("nameDesc"));
+          }}
+        >
+          Sort by Name (desc)
+        </button>
+        <button
+          onClick={() => {
+            dispatch(setSort("durationAsc"));
+          }}
+        >
+          {" "}
+          Sort by Duration (asc)
+        </button>
+        <button
+          onClick={() => {
+            dispatch(setSort("durationDesc"));
+          }}
+        >
+          Sort by Duration (desc)
+        </button>
       </ul>
     </div>
   );

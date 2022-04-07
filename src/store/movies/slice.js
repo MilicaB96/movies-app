@@ -6,6 +6,8 @@ export const counterSlice = createSlice({
     search: "",
     selectedMovies: [],
     currentPage: 1,
+    sortBy: null,
+    isAllSelected: 0,
   },
   reducers: {
     addMovies: (state, action) => {
@@ -24,9 +26,11 @@ export const counterSlice = createSlice({
     },
     selectAllMovies: (state) => {
       state.selectedMovies = state.movies.map((item) => item.id);
+      state.isAllSelected = 1;
     },
     deselectAllMovies: (state) => {
       state.selectedMovies = [];
+      state.isAllSelected = 0;
     },
     nextPage: (state) => {
       if (state.currentPage == Math.ceil(state.movies.length / 5)) {
@@ -42,6 +46,9 @@ export const counterSlice = createSlice({
         state.currentPage--;
       }
     },
+    setSort: (state, action) => {
+      state.sortBy = action.payload;
+    },
   },
 });
 export const {
@@ -53,5 +60,6 @@ export const {
   deselectAllMovies,
   nextPage,
   previousPage,
+  setSort,
 } = counterSlice.actions;
 export default counterSlice.reducer;
