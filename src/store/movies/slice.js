@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-export const counterSlice = createSlice({
+import { act } from "react-dom/test-utils";
+
+const middlewareAction = {
+  getMovies: () => {},
+  createMovie: () => {},
+};
+export const movieSlice = createSlice({
   name: "movie",
   initialState: {
     movies: [],
@@ -7,7 +13,7 @@ export const counterSlice = createSlice({
     selectedMovies: [],
     currentPage: 1,
     sortBy: null,
-    isAllSelected: 0,
+    errors: {},
   },
   reducers: {
     addMovies: (state, action) => {
@@ -18,6 +24,9 @@ export const counterSlice = createSlice({
     },
     addSelectedMovie: (state, action) => {
       state.selectedMovies.push(action.payload);
+    },
+    addMovie: (state, action) => {
+      state.movies.push(action.payload);
     },
     removeSelectedMovie: (state, action) => {
       state.selectedMovies = state.selectedMovies.filter(
@@ -49,6 +58,10 @@ export const counterSlice = createSlice({
     setSort: (state, action) => {
       state.sortBy = action.payload;
     },
+    setErrors: (state, action) => {
+      state.errors = action.payload;
+    },
+    ...middlewareAction,
   },
 });
 export const {
@@ -61,5 +74,9 @@ export const {
   nextPage,
   previousPage,
   setSort,
-} = counterSlice.actions;
-export default counterSlice.reducer;
+  getMovies,
+  createMovie,
+  addMovie,
+  setErrors,
+} = movieSlice.actions;
+export default movieSlice.reducer;

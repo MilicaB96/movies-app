@@ -35,3 +35,4 @@ export const sortMovie = (state) => {
   return state.movie.movies.sort();
 };
 export const selectIsAllSelected = (state) => state.movie.isAllSelected;
+export const selectErrors = (state) => state.movie.errors;

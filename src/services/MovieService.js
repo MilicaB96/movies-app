@@ -11,10 +11,10 @@ class MovieService extends HttpService {
     return data;
   };
 
-  async add(newMovie) {
+  add = async (newMovie) => {
     const { data } = await this.client.post("movies", newMovie);
     return data;
-  }
+  };
 
   async edit(id, movie) {
     const { data } = await this.client.put(`movies/${id}`, movie);

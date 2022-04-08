@@ -4,6 +4,7 @@ import MovieService from "../services/MovieService";
 import {
   addMovies,
   deselectAllMovies,
+  getMovies,
   nextPage,
   previousPage,
   selectAllMovies,
@@ -14,26 +15,16 @@ import {
   selectCount,
   selectMovies,
   selectSearch,
-  selectMoviesOnPage,
   selectIsAllSelected,
 } from "../store/movies/selectors";
 import MovieRow from "../components/MovieRow";
 function AppMovies() {
   const dispatch = useDispatch();
-  const fetchMovies = async () => {
-    try {
-      const data = await MovieService.getAll();
-      dispatch(addMovies(data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
   useEffect(() => {
-    fetchMovies();
+    dispatch(getMovies());
   }, []);
   // movie selector
   const movies = useSelector(selectMovies);
-
   // movies on display
   // search selector
   const search = useSelector(selectSearch);
